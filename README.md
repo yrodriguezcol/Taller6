@@ -1,1 +1,1 @@
-# wallet_project
+# Back End Course Final Project (WALLET)
