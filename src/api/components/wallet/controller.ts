@@ -1,12 +1,14 @@
 import { Request, Response } from "express"
+import Joi from "joi"
 import { WalletCreateReq } from "./model"
 import { WalletService } from "./service"
-
+import { rechargeValidation } from "./validations/wallet.validations"
 
 
 export interface WalletController {
     createWallet(req: Request, res: Response): void
     rechargeWallet(req: Request, res: Response): void
+    refundWallet(req: Request, res: Response): void
 }
 
 export class WalletControllerImp implements WalletController{
@@ -44,10 +46,32 @@ export class WalletControllerImp implements WalletController{
         )
     } 
 
-    public rechargeWallet(req: Request, res: Response): void {
+    public async rechargeWallet(req: Request, res: Response): Promise<void> {
         const bodyReq = req.body
-        // Validar que wallet existe
-        // Validar que status sea active
-        // Validar que amount no supere el máximo de 5M
+        const id = parseInt(req.params.wallet_id)
+
+        const walletDb  = await this.walletService.getWalletById(id)
+
+        const validation = rechargeValidation(bodyReq, "Recharge", walletDb)?.details[0]
+        if (validation){
+            res.status(400).json(validation)
+        } else{
+            const updateWallet = await this.walletService.rechargeWallet(id, { amount: bodyReq.amount+ (walletDb.amount ==null? 0 : walletDb.amount)}, walletDb)
+            res.status(200).json(updateWallet)
+        }
+    }
+    public async refundWallet(req: Request, res: Response): Promise<void> {
+        const bodyReq = req.body
+        const id = parseInt(req.params.wallet_id)
+
+        const walletDb  = await this.walletService.getWalletById(id)
+
+        const validation = rechargeValidation(bodyReq, "Refund", walletDb)?.details[0]
+        if (validation){
+            res.status(400).json(validation)
+        } else{
+            const updateWallet = await this.walletService.rechargeWallet(id, { amount: bodyReq.amount+ (walletDb.amount ==null? 0 : walletDb.amount)}, walletDb)
+            res.status(200).json(updateWallet)
+        }
     }
 }

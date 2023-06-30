@@ -20,6 +20,11 @@ export interface  WalletDBRes {
     updated_at: Date
 }
 
+export interface  WalletRechargeRes {
+    amount: number,
+    updated_at: Date
+}
+
 export interface  WalletCreateRes {
     wallet_id: number,
     user_id: number,
