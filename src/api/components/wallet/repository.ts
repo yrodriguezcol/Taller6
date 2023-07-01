@@ -34,7 +34,7 @@ export class WalletRepository{
         }
     }
     
-    public async rechargeWallet(wallet_id: number, updates: Partial<WalletRechargeRes>): Promise<void>{
+    public async updateWallet(wallet_id: number, updates: Partial<WalletRechargeRes>): Promise<void>{
         try{
             await db('wallet').where({wallet_id}).update(updates)
         } catch (error){

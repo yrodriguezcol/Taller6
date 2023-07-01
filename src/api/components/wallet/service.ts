@@ -1,5 +1,5 @@
 import { GetByIdError } from "../../../utils/customErrors"
-import { WalletCreateRes, WalletCreateReq, WalletDBInsert, WalletDBRes, WalletRechargeReq, WalletRechargeRes} from "./model"
+import { WalletCreateRes, WalletCreateReq, WalletDBInsert, WalletDBRes, WalletRechargeReq, WalletRechargeRes, WalletMaxAmountReq, WalletLimitMaxAmountRes} from "./model"
 import { WalletRepository } from "./repository"
 
 export interface WalletService {
@@ -7,6 +7,7 @@ export interface WalletService {
     getWalletByUserId(userId: number): Promise<WalletDBRes>
     getWalletById(walletId: number): Promise<WalletDBRes>
     rechargeWallet(walletId: number, walletReq: WalletRechargeReq, walletDbRes: WalletDBRes): WalletDBRes
+    limitTxAmountWallet(walletId: number, walletReq: WalletMaxAmountReq, walletDbRes: WalletDBRes): WalletDBRes
 }
 
 export class WalletServiceImp implements WalletService {
@@ -60,7 +61,17 @@ export class WalletServiceImp implements WalletService {
             updated_at:new Date()
         } 
         const updateWallet = {...walletDbRes, ...dataWalletUpdate}
-        this.walletRepository.rechargeWallet(walletId, dataWalletUpdate) 
+        this.walletRepository.updateWallet(walletId, dataWalletUpdate) 
+        return updateWallet
+    }
+
+    public limitTxAmountWallet(walletId: number, walletReq: WalletMaxAmountReq, walletDbRes: WalletDBRes): WalletDBRes {
+        const dataWalletUpdate: WalletLimitMaxAmountRes = {
+            max_amount: walletReq.maxAmount,
+            updated_at:new Date()
+        } 
+        const updateWallet = {...walletDbRes, ...dataWalletUpdate}
+        this.walletRepository.updateWallet(walletId, dataWalletUpdate) 
         return updateWallet
     }
 }

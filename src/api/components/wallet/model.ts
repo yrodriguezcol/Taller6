@@ -35,3 +35,25 @@ export interface  WalletCreateRes {
 export interface WalletRechargeReq {
     amount: number
 }
+
+export interface WalletMaxAmountReq {
+    maxAmount: number
+}
+
+export interface ValidationStruct {
+    walletDb?: WalletDBRes,
+    type: string,
+    amount: number,
+    maxAmount: number
+}
+
+export interface ValidationCondition {
+    active?: boolean,
+    amountOver?: boolean,
+    maxAmount?:boolean
+}
+
+export interface  WalletLimitMaxAmountRes {
+    max_amount: number,
+    updated_at: Date
+}

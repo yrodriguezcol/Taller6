@@ -1,6 +1,7 @@
 import { db } from "../../../config/database"
-import { Transaction } from "./model"
-import { GetAllError, GetByIdError } from "../../../utils/customErrors"
+import { Transaction, TransactionReq } from "./model"
+import { CreateError, GetAllError, GetByIdError } from "../../../utils/customErrors"
+import logger from "../../../utils/logger"
 
 export class TransactionRepository {
 
@@ -18,6 +19,17 @@ export class TransactionRepository {
             return transaction
         } catch (error){
             throw new GetByIdError("Failed getting transaction by id", 'transaction')
+        }
+    }
+
+    public async createTx( req: TransactionReq ): Promise<Transaction> {
+        try{
+            const [createTx]  = await db('transaction').insert(req).returning('*')
+            return createTx
+        } catch (error){
+
+            logger.error(error)
+            throw new CreateError("Failed to create transaction", 'transaction')
         }
     }
 

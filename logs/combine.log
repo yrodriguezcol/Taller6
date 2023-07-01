@@ -52,3 +52,23 @@
 2023-06-30T02:13:30.995Z-info: Server is listening on port 8086
 2023-06-30T02:18:05.659Z-info: Server is listening on port 8086
 2023-06-30T02:25:14.408Z-info: Server is listening on port 8086
+2023-07-01T01:15:57.374Z-info: Server is listening on port 8086
+2023-07-01T01:16:59.790Z-info: Server is listening on port 8086
+2023-07-01T01:17:26.968Z-info: Server is listening on port 8086
+2023-07-01T01:27:18.387Z-info: Server is listening on port 8086
+2023-07-01T01:46:10.281Z-info: Server is listening on port 8086
+2023-07-01T01:47:49.199Z-error: insert into "transaction" ("amount", "created_at", "type", "updated_at", "wallet_id") values ($1, $2, $3, $4, $5) returning * - insert or update on table "transaction" violates foreign key constraint "fk_transaction"
+2023-07-01T01:50:15.213Z-info: Server is listening on port 8086
+2023-07-01T01:50:17.710Z-error: insert into "transaction" ("amount", "created_at", "type", "updated_at", "wallet_id") values ($1, $2, $3, $4, $5) returning * - insert or update on table "transaction" violates foreign key constraint "fk_transaction"
+2023-07-01T01:52:42.658Z-info: Server is listening on port 8086
+2023-07-01T01:55:57.651Z-info: Server is listening on port 8086
+2023-07-01T02:09:52.092Z-info: Server is listening on port 8086
+2023-07-01T02:13:03.150Z-info: Server is listening on port 8086
+2023-07-01T02:14:07.906Z-info: Server is listening on port 8086
+2023-07-01T02:14:50.708Z-info: Server is listening on port 8086
+2023-07-01T02:15:17.179Z-info: Server is listening on port 8086
+2023-07-01T02:15:28.183Z-info: Server is listening on port 8086
+2023-07-01T02:15:56.822Z-info: Server is listening on port 8086
+2023-07-01T02:17:00.178Z-info: Server is listening on port 8086
+2023-07-01T02:24:41.800Z-info: Server is listening on port 8086
+2023-07-01T02:25:22.298Z-info: Server is listening on port 8086

@@ -16,6 +16,6 @@ router.patch('/:wallet_id/recharge', walletController.rechargeWallet.bind(wallet
 // Refund Wallet
 router.patch('/:wallet_id/refund', walletController.refundWallet.bind(walletController))
 // Tx amount limit
-router.post('/:wallet_id/limit')
+router.patch('/:wallet_id/limit', walletController.limitTxAmountWallet.bind(walletController))
 
 export default router
