@@ -39,7 +39,6 @@ export class WalletServiceImp implements WalletService {
     }
     public async getWalletByUserId(userId: number): Promise<WalletDBRes> {
         const wallet = await this.walletRepository.getWalletByUserId(userId)
-        console.log(wallet ?  "Existe" : "No existe")
         if (wallet){
             return wallet
         } else{

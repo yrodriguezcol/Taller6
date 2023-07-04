@@ -1,6 +1,6 @@
 import { db } from "../../../config/database"
 import { Transaction, TransactionReq } from "./model"
-import { CreateError, GetAllError, GetByIdError } from "../../../utils/customErrors"
+import { CreateError, GetAllError, GetByIdError, UpdateError } from "../../../utils/customErrors"
 import logger from "../../../utils/logger"
 
 export class TransactionRepository {
@@ -13,9 +13,10 @@ export class TransactionRepository {
         }
     }
 
-    public async getByIdTransaction(id: number): Promise<Transaction> {
+    public async getByIdTransaction(transaction_id: number): Promise<Transaction> {
         try{
-            const transaction = await db("transaction").where({transaction_id: id}).first()
+            console.log(transaction_id)
+            const transaction = await db("transaction").where({transaction_id}).first()
             return transaction
         } catch (error){
             throw new GetByIdError("Failed getting transaction by id", 'transaction')
@@ -30,6 +31,15 @@ export class TransactionRepository {
 
             logger.error(error)
             throw new CreateError("Failed to create transaction", 'transaction')
+        }
+    }
+    
+    public async updateTransaction(transaction_id: number, updates: Partial<Transaction>): Promise<void>{
+        try{
+            await db('transaction').where({transaction_id}).update(updates)
+        } catch (error){
+            console.error(error)
+            throw new UpdateError("Failed updating transaction", 'transaction')
         }
     }
 

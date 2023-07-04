@@ -15,7 +15,7 @@ const transactionController: TransactionController = new TransactionControllerIm
 // Create Transaction
 router.post('/create', transactionController.createTx.bind(transactionController))
 // Update Transaction
-router.patch('/:id_tx/update')
+// router.patch('/:tx_id/update', transactionController.updateTransaction.bind(transactionController))
 // list transactions
 router.get('/list', transactionController.getAllTransactions.bind(transactionController))
 // get transaction by id
