@@ -78,3 +78,16 @@
 2023-07-04T01:18:56.917Z-info: Server is listening on port 8086
 2023-07-04T01:21:33.312Z-info: Server is listening on port 8086
 2023-07-04T01:21:41.621Z-error: Failed Discount wallet amount
+2023-07-05T02:37:33.264Z-info: Server is listening on port 8086
+2023-07-05T02:39:33.063Z-info: Server is listening on port 8086
+2023-07-05T02:40:21.334Z-info: Server is listening on port 8086
+2023-07-05T02:42:03.444Z-info: Server is listening on port 8086
+2023-07-05T02:42:11.045Z-info: Server is listening on port 8086
+2023-07-05T02:42:34.106Z-info: Server is listening on port 8086
+2023-07-05T02:42:35.836Z-info: Failed to send Notification Invalid messages array [undefined] for topic "transaction_async_topic"
+2023-07-05T02:43:39.284Z-info: Server is listening on port 8086
+2023-07-05T02:43:42.300Z-info: Failed to send Notification Invalid messages array [undefined] for topic "transaction_async_topic"
+2023-07-05T02:44:33.295Z-info: Server is listening on port 8086
+2023-07-05T02:44:36.643Z-info: Failed to send Notification Invalid messages array [undefined] for topic "transaction_async_topic"
+2023-07-05T02:45:06.309Z-info: Server is listening on port 8086
+2023-07-05T02:45:06.788Z-info: Notification send successfully
