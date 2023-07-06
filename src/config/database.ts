@@ -1,9 +1,10 @@
 import { knex } from 'knex'
 import dotenv from 'dotenv'
+import pgPromise from 'pg-promise'
 
 dotenv.config({path: './.env'})
 
-export const db =  knex({
+const db =  knex({
     client: 'pg',
     connection: {
         host: 'localhost',
@@ -14,5 +15,9 @@ export const db =  knex({
     },
 })
 
+const connString = 'postgresql://postgres:changeme@localhost:5433/wallet'
+const pgp = pgPromise()
+const db1 = pgp(connString)
 
-export default db
+
+export {db, db1}

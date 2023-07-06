@@ -36,6 +36,7 @@ export class TransactionRepository {
     
     public async updateTransaction(transaction_id: number, updates: Partial<Transaction>): Promise<void>{
         try{
+            console.log(transaction_id, "Acá está")
             await db('transaction').where({transaction_id}).update(updates)
         } catch (error){
             console.error(error)

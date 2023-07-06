@@ -11,11 +11,12 @@ const transactionService = new TransactionServiceImp(transactionRepository)
 const walletRepository =  new WalletRepository() 
 const walletService = new WalletServiceImp(walletRepository) 
 
+transactionService.startListenNotify()
 const transactionController: TransactionController = new TransactionControllerImp(transactionService, walletService)
 // Create Transaction
 router.post('/create', transactionController.createTx.bind(transactionController))
 // Update Transaction
-// router.patch('/:tx_id/update', transactionController.updateTransaction.bind(transactionController))
+router.patch('/:tx_id/update', transactionController.updateTransaction.bind(transactionController))
 // list transactions
 router.get('/list', transactionController.getAllTransactions.bind(transactionController))
 // get transaction by id

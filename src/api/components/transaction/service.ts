@@ -1,8 +1,10 @@
 
 import { TransactionReq, Transaction, UpdateTransaction } from "./model"
 import { TransactionRepository } from "./repository"
-import { KafkaClient } from "../client/kafka"
-import { JsxEmit } from "typescript"
+import { KafkaClient } from "./client/kafka"
+import { UpdateError } from "../../../utils/customErrors"
+import { DiagnosticCategory } from "typescript"
+import {db, db1} from "../../../config/database"
 export interface TransactionService {
     getAllTransactions():  Promise<Transaction[]>
     getTransactionById(tx_id: number):  Promise<Transaction>
@@ -41,11 +43,12 @@ export class TransactionServiceImp implements TransactionService{
         const now: Date =  new Date
         txReq.created_at = now
         txReq.updated_at = now
+        txReq.status = "pending"
         const txDb = await this.transactionRepository.createTx(txReq)
         const topic = 'transaction_async_topic'
 
         try{
-            await this.kafkaClient.sendNotification(topic, JSON.stringify(txDb))
+            await this.kafkaClient.sendNotification(topic, txDb)
         } catch (error){
             new Error("Failed to send notification to Kafka"+ error)
         }
@@ -58,5 +61,32 @@ export class TransactionServiceImp implements TransactionService{
         const updateTransaction = {...txRes, ...txReq}
         this.transactionRepository.updateTransaction(tx_id, txReq) 
         return updateTransaction
+    }
+
+    async processNotification( notification: string) :Promise<void> {
+        try {
+            console.log(notification)
+            const data:Transaction = JSON.parse(notification)
+            const updateTx: UpdateTransaction = {
+                updated_at: new Date(),
+                status: (data.status=='existoso')? data.status: 'pending'
+            }
+            console.log(updateTx)
+            await db1.none("INSERT INTO transaction (status, updated_at) VALUES ($1, $2)", [updateTx.status, updateTx.updated_at])
+            //db('transaction').where({transaction_id:data.transaction_id}).update(updateTx)
+            //this.transactionRepository.updateTransaction(data.transaction_id, updateTx) 
+            console.log(data.transaction_id)
+        } catch (error){
+            new UpdateError("Failed updating async transaction", "transaction")
+        }
+    }
+
+    public async startListenNotify(){
+        function delay(ms: number) {
+            return new Promise( resolve => setTimeout(resolve, ms) );
+        }
+        await delay(3000);
+        await this.kafkaClient.Listener("transaction_async_topic", this.processNotification)
+
     }
 }

@@ -60,6 +60,17 @@ export class TransactionControllerImp implements TransactionController{
                 )
             } else if (bodyReq.type=='validada'){
                 this.transactionService.createTxAsync(bodyReq)
+                .then(
+                    (transaction) => {
+                        res.status(201).json(transaction)
+                    },
+                    (error) =>{
+                        res.status(400).json({
+                            type: error.name,
+                            message: "Failed Creating a Transaction"
+                        })
+                    }
+                )
             }
         }    
     } 
