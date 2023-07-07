@@ -4,7 +4,7 @@ import { TransactionRepository } from "./repository"
 import { KafkaClient } from "./client/kafka"
 import { UpdateError } from "../../../utils/customErrors"
 import { DiagnosticCategory } from "typescript"
-import {db, db1} from "../../../config/database"
+import {db} from "../../../config/database"
 export interface TransactionService {
     getAllTransactions():  Promise<Transaction[]>
     getTransactionById(tx_id: number):  Promise<Transaction>
@@ -63,30 +63,8 @@ export class TransactionServiceImp implements TransactionService{
         return updateTransaction
     }
 
-    async processNotification( notification: string) :Promise<void> {
-        try {
-            console.log(notification)
-            const data:Transaction = JSON.parse(notification)
-            const updateTx: UpdateTransaction = {
-                updated_at: new Date(),
-                status: (data.status=='existoso')? data.status: 'pending'
-            }
-            console.log(updateTx)
-            await db1.none("INSERT INTO transaction (status, updated_at) VALUES ($1, $2)", [updateTx.status, updateTx.updated_at])
-            //db('transaction').where({transaction_id:data.transaction_id}).update(updateTx)
-            //this.transactionRepository.updateTransaction(data.transaction_id, updateTx) 
-            console.log(data.transaction_id)
-        } catch (error){
-            new UpdateError("Failed updating async transaction", "transaction")
-        }
-    }
-
     public async startListenNotify(){
-        function delay(ms: number) {
-            return new Promise( resolve => setTimeout(resolve, ms) );
-        }
-        await delay(3000);
-        await this.kafkaClient.Listener("transaction_async_topic", this.processNotification)
+        await this.kafkaClient.Listener("transaction_async_topic", this.transactionRepository.updateTransaction)
 
     }
 }

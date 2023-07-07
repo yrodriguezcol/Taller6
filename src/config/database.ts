@@ -15,9 +15,7 @@ const db =  knex({
     },
 })
 
-const connString = 'postgresql://postgres:changeme@localhost:5433/wallet'
-const pgp = pgPromise()
-const db1 = pgp(connString)
 
 
-export {db, db1}
+
+export {db}

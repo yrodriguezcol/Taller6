@@ -79,7 +79,7 @@ export class TransactionControllerImp implements TransactionController{
     public async updateTransaction(req: Request, res: Response): Promise<void> {
         const bodyReq = req.body
         const id = parseInt(req.params.tx_id)
-        console.log(id)
+
         const transaction = await this.transactionService.getTransactionById(id)
         const transactionDb  = await this.transactionService.updateTx(id, bodyReq, transaction)
         res.status(200).json(transactionDb)
