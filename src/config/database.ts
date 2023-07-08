@@ -1,7 +1,7 @@
 import { knex } from 'knex'
 import dotenv from 'dotenv'
-import pgPromise from 'pg-promise'
-
+import configDb from '../db/knexfile'
+configDb
 dotenv.config({path: './.env'})
 
 const db =  knex({

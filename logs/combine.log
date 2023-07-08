@@ -134,3 +134,15 @@
 2023-07-07T00:51:12.635Z-info: Server is listening on port 8086
 2023-07-07T00:51:19.338Z-info: Notification send successfully
 2023-07-07T00:51:48.063Z-info: Notification send successfully
+2023-07-08T00:52:53.416Z-info: Server is listening on port 8086
+2023-07-08T00:56:35.040Z-info: Server is listening on port 8086
+2023-07-08T00:57:48.052Z-info: Server is listening on port 8086
+2023-07-08T00:57:48.057Z-error: ENOENT: no such file or directory, scandir '/home/caceresc2093/Documents/Curso/DesarrolloWeb/wallet_project/migrations'
+2023-07-08T01:01:26.290Z-info: Server is listening on port 8086
+2023-07-08T01:01:26.401Z-info: Migrations ran successfully
+2023-07-08T01:01:47.617Z-info: Server is listening on port 8086
+2023-07-08T01:01:47.667Z-info: Migrations ran successfully
+2023-07-08T01:17:04.505Z-info: Server is listening on port 8086
+2023-07-08T01:17:04.533Z-error: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string
+2023-07-08T01:17:54.526Z-info: Server is listening on port 8086
+2023-07-08T01:17:54.569Z-info: Migrations ran successfully
